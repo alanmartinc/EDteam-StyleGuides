@@ -38,7 +38,7 @@ gulp.task('styles', () =>
     .pipe(sass(sassOptions))
     .pipe(postcss(postcssPlugins))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./public/css'))
+    .pipe(gulp.dest('./css'))
     .pipe(server.stream({match: '**/*.css'}))
 );
 
@@ -46,7 +46,7 @@ gulp.task('pug', () =>
   gulp.src('./dev/pug/pages/*.pug')
     .pipe(plumber())
     .pipe(pug())
-    .pipe(gulp.dest('./public'))
+    .pipe(gulp.dest('./'))
 );
 
 gulp.task('scripts', () =>
@@ -63,7 +63,7 @@ gulp.task('scripts', () =>
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./public/js'))
+    .pipe(gulp.dest('./js'))
 );
 gulp.task('images', function() {
  gulp.src('./dev/img/**/*.{png,jpg,jpeg,gif,PNG}')
@@ -72,19 +72,19 @@ gulp.task('images', function() {
     svgoPlugins: [{removeViewBox: false}],
     use: [pngcrush()]
   }))
-  .pipe(gulp.dest('./public/img'))
+  .pipe(gulp.dest('./img'))
 
 });
 
 gulp.task('copy', function() {
  gulp.src('./dev/img/**/*.svg')
-  .pipe(gulp.dest('./public/img'))
+  .pipe(gulp.dest('./img'))
 });
 
 gulp.task('default', ['styles', 'pug', 'scripts', 'images', 'copy'], () => {
   server.init({
     server: {
-      baseDir: './public'
+      baseDir: './'
     },
   });
 
